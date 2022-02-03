@@ -25,3 +25,18 @@ class Place(models.Model):
     class Meta:
         verbose_name = 'место'
         verbose_name_plural = 'места'
+
+
+class PlaceImage(models.Model):
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField(
+        verbose_name='изображение'
+    )
+
+    class Meta:
+        verbose_name = 'изображение места'
+        verbose_name_plural = 'изображения мест'

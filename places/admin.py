@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from .models import Place
+from .models import Place, PlaceImage
+
+
+class PlaceImageInline(admin.TabularInline):
+    model = PlaceImage
 
 
 class PlaceAdmin(admin.ModelAdmin):
@@ -11,6 +15,10 @@ class PlaceAdmin(admin.ModelAdmin):
         ('Координаты', {
             'fields': ('longitude', 'latitude')
         })
+    )
+
+    inlines = (
+        PlaceImageInline,
     )
 
 
