@@ -31,6 +31,10 @@ class PlaceAdmin(admin.ModelAdmin):
         })
     )
 
+    search_fields = [
+        'title'
+    ]
+
     inlines = (
         PlaceImageInline,
     )
