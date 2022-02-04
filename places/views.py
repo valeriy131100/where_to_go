@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
 
 from .models import Place
 
 
-def serialize_place(place: Place):
+def get_place_geo_json(place: Place):
     return {
         'type': 'Feature',
         'geometry': {
@@ -16,21 +17,37 @@ def serialize_place(place: Place):
         'properties': {
             'title': place.title,
             'placeId': place.id,
-            # replace this
-            'detailsUrl': './static/places/moscow_legends.json'
+            'detailsUrl': f'/places/{place.id}'
         }
 
     }
 
 
 def index(request):
-    places = Place.objects.prefetch_related('images')
+    places = Place.objects.all()
 
     places_context = {
         'type': 'FeatureCollection',
         'features': [
-            serialize_place(place) for place in places
+            get_place_geo_json(place) for place in places
         ]
     }
 
     return render(request, 'index.html', {'places': places_context})
+
+
+def get_place_by_id(request, place_id):
+    place = get_object_or_404(Place, pk=place_id)
+
+    place_context = {
+        'title': place.title,
+        'imgs': [place_image.image.url for place_image in place.images.all()],
+        'description_short': place.short_description,
+        'description_long': place.long_description,
+        'coordinates': {
+            'lng': place.longitude,
+            'lat': place.latitude
+        }
+    }
+
+    return JsonResponse(place_context)
