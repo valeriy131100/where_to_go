@@ -38,6 +38,9 @@ class PlaceImage(models.Model):
     image = models.ImageField(
         verbose_name='изображение'
     )
+    position = models.IntegerField(
+        default=0
+    )
 
     def __str__(self):
         return f'Изображение места "{self.place.title}"'
@@ -45,3 +48,4 @@ class PlaceImage(models.Model):
     class Meta:
         verbose_name = 'изображение места'
         verbose_name_plural = 'изображения мест'
+        ordering = ['position']
