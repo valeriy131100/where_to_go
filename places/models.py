@@ -7,8 +7,7 @@ class Place(models.Model):
         verbose_name='название'
     )
 
-    short_description = models.CharField(
-        max_length=200,
+    short_description = models.TextField(
         verbose_name='краткое описание'
     )
     long_description = models.TextField(
