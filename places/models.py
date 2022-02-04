@@ -40,7 +40,8 @@ class PlaceImage(models.Model):
         verbose_name='изображение'
     )
     position = models.IntegerField(
-        default=0
+        default=0,
+        verbose_name='позиция'
     )
 
     def __str__(self):
