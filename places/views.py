@@ -26,28 +26,30 @@ def get_place_geo_json(place: Place):
 def index(request):
     places = Place.objects.all()
 
-    places_context = {
+    places_geojson = {
         'type': 'FeatureCollection',
         'features': [
             get_place_geo_json(place) for place in places
         ]
     }
 
-    return render(request, 'index.html', {'places': places_context})
+    return render(request, 'index.html', {'places': places_geojson})
 
 
 def get_place_by_id(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
 
-    place_context = {
-        'title': place.title,
-        'imgs': [place_image.image.url for place_image in place.images.all()],
-        'description_short': place.short_description,
-        'description_long': place.long_description,
-        'coordinates': {
-            'lng': place.longitude,
-            'lat': place.latitude
+    return JsonResponse(
+        {
+            'title': place.title,
+            'imgs': [
+                place_image.image.url for place_image in place.images.all()
+            ],
+            'description_short': place.short_description,
+            'description_long': place.long_description,
+            'coordinates': {
+                'lng': place.longitude,
+                'lat': place.latitude
+            }
         }
-    }
-
-    return JsonResponse(place_context)
+    )
