@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, reverse
 
 from .models import Place
 
@@ -17,7 +17,7 @@ def get_place_geo_json(place: Place):
         'properties': {
             'title': place.title,
             'placeId': place.id,
-            'detailsUrl': f'/places/{place.id}'
+            'detailsUrl': reverse(get_place_by_id, args=[place.id])
         }
 
     }
