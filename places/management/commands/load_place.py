@@ -49,8 +49,3 @@ class Command(BaseCommand):
                     ContentFile(image_response.content),
                     save=True
                 )
-
-
-
-
-
