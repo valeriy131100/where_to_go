@@ -88,7 +88,10 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = env.str('STATIC_URL', default='/static/')
-STATIC_ROOT = env.str('STATIC_ROOT', default=str(BASE_DIR / 'static'))
+STATIC_ROOT = env.str(
+    'STATIC_ROOT',
+    default=None if DEBUG else str(BASE_DIR / 'static')
+)
 STATICFILES_DIRS = env.list('STATICFILES_DIRS', default=[])
 
 MEDIA_URL = env.str('MEDIA_URL', default='/media/')
