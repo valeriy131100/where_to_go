@@ -8,7 +8,7 @@ env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = env.bool('DEBUG', default=False)
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY', default='REPLACE_ME')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=not DEBUG)
