@@ -51,5 +51,9 @@ def get_place_by_id(request, place_id):
                 'lng': place.longitude,
                 'lat': place.latitude
             }
+        },
+        json_dumps_params={
+            'ensure_ascii': False,
+            'indent': 2
         }
     )
